@@ -14,7 +14,11 @@ struct App
     void set_response_status(std::string response_status) { this->response_status = response_status; }
     void set_fun1(PyObject* fun1) { this->fun1 = fun1; }
     PyObject* get_fun1() { return fun1; }
-    char const* on_call() { return "on_call"; }
+    char const* on_call(dict env, PyObject* start_response)
+    {
+        call<void>(start_response, env.items());
+        return "done";
+    }
     std::string get_response_status() { return response_status; }
     std::string response_status;
     PyObject* fun1;
